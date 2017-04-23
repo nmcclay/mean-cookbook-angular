@@ -1,5 +1,50 @@
-<p>
-  posts works!
-</p>
 
-<router-outlet></router-outlet>
+
+
+
+<div class="row">
+  <div class="col-3">
+    <p>Authors</p>
+    <ngb-accordion activeIds="ngb-panel-0">
+      <ngb-panel>
+        <template ngbPanelTitle>
+          <strong>
+            <fa [name]="'user'" [size]=1></fa>
+            Matt DeLucas
+          </strong>
+        </template>
+        <template ngbPanelContent>
+          <ul class="list-unstyled">
+            <li><fa [name]="'newspaper-o'"></fa> Post 1</li>
+            <li> <fa [name]="'newspaper-o'"></fa> Post 2</li>
+            <li> <fa [name]="'newspaper-o'"></fa> Post 3</li>
+          </ul>
+        </template>
+      </ngb-panel>
+      <ngb-panel>
+        <template ngbPanelTitle>
+          <strong>Brandon Bittner</strong> <small>(3)</small>
+        </template>
+        <template ngbPanelContent>
+          <ul class="list-unstyled">
+            <li>Post 4</li>
+            <li>Post 5</li>
+            <li>Post 6</li>
+          </ul>
+        </template>
+      </ngb-panel>
+      <ngb-panel title="Mallory Moore">
+        <template ngbPanelContent>
+          <ul class="list-unstyled">
+            <li>Post 7</li>
+            <li>Post 8</li>
+            <li>Post 9</li>
+          </ul>
+        </template>
+      </ngb-panel>
+    </ngb-accordion>
+  </div>
+  <div class="col-9">
+    <router-outlet></router-outlet>
+  </div>
+</div>
