@@ -1,17 +1,15 @@
 import { TRANSLATIONS, TRANSLATIONS_FORMAT, LOCALE_ID } from '@angular/core';
 export function getTranslationProviders(): Promise<Object[]> {
   // Get the locale id from the global
-  // const locale = document['locale'] as string;
-  let locale = 'es';
+  const locale = document['locale'] as string;
   // return no providers if fail to get translation file for locale
   const noProviders: Object[] = [];
   // No locale or U.S. English: no translation providers
   if (!locale || locale === 'en-US') {
     return Promise.resolve(noProviders);
   }
-  // Ex: 'locale/messages.es.xlf`
-  const translationFile = `../locale/messages.${locale}.xlf`;
-  return getTranslationsWithES6Import(translationFile)
+
+  return getTranslationsWithES6Import(locale)
     .then((translations: string ) => [
       { provide: TRANSLATIONS, useValue: translations },
       { provide: TRANSLATIONS_FORMAT, useValue: 'xlf' },
@@ -22,6 +20,6 @@ export function getTranslationProviders(): Promise<Object[]> {
 
 declare var System: any;
 
-function getTranslationsWithES6Import(file: string) {
-  return System.import(file);
+function getTranslationsWithES6Import(locale: string) {
+  return System.import('../locale/messages.' + locale + '.xlf');
 }
