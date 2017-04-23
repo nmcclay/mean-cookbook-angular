@@ -9,10 +9,13 @@ import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawe
 
 const ROUTES = [{
   path: "posts",
-  component: PostsComponent
-}, {
-  path: "posts/:id",
-  component: PostComponent
+  component: PostsComponent,
+  children: [
+    {
+      path: ":id",
+      component: PostComponent
+    }
+  ]
 }];
 
 @NgModule({
