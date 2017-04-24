@@ -16,6 +16,10 @@
         <note priority="1" from="description">Primary link to list of blog authors</note>
         <note priority="1" from="meaning">People who write blog posts</note>
       </trans-unit>
+      <trans-unit id="ac45e8306a8ff56c7645ed9fbf00cbdcee3a6e44" datatype="html">
+        <source/>
+        <target/>
+      </trans-unit>
     </body>
   </file>
 </xliff>
