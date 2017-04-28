@@ -24,4 +24,6 @@ export class PostComponent implements OnInit {
     console.log(this.postId);
   }
 
+  postDate = new Date();
+
 }
