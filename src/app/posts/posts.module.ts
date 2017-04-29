@@ -4,8 +4,8 @@ import {RouterModule} from "@angular/router";
 import {PostsComponent} from "./posts.component";
 import {PostComponent} from "./post/post.component";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
-
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
+import { CreatePostFormComponent } from './create-post-form/create-post-form.component'
 
 const ROUTES = [{
   path: "posts",
@@ -27,7 +27,8 @@ const ROUTES = [{
   ],
   declarations: [
     PostsComponent,
-    PostComponent
+    PostComponent,
+    CreatePostFormComponent
   ]
 })
 export class PostsModule { }

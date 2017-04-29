@@ -1,0 +1,22 @@
+<ng-template #modal let-c="close">
+  <div class="modal-header">
+    <h4 class="modal-title">New Post</h4>
+    <button type="button" class="close" aria-label="Close" (click)="c()">
+      <fa [name]="'close'"></fa>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="formGroupExampleInput">Title</label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="New Blog Post Title">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c()">Cancel</button>
+    <button type="button" class="btn btn-primary">Submit</button>
+  </div>
+</ng-template>
+
+<button (click)="open(modal)" class="btn btn-block btn-primary"><fa [name]="'plus'" [fw]=true></fa>Create New Post</button>
