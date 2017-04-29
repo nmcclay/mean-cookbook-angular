@@ -6,16 +6,20 @@
     </button>
   </div>
   <div class="modal-body">
-    <form>
+    <form #postForm="ngForm">
       <div class="form-group">
-        <label for="formGroupExampleInput">Title</label>
-        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="New Blog Post Title">
+        <label for="formTitleInput">Title</label>
+        <input type="text" class="form-control" id="formTitleInput" placeholder="New Blog Post Title" name="title" [(ngModel)]="model.title">
+      </div>
+      <div class="form-group">
+        <label for="formBodyInput">Content</label>
+        <textarea type="text" class="form-control" id="formBodyInput" rows="6" placeholder="New Blog Content" name="body" [(ngModel)]="model.body"></textarea>
       </div>
     </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="c()">Cancel</button>
-    <button type="button" class="btn btn-primary">Submit</button>
+    <button type="button" class="btn btn-primary" (click)="submit()">Submit</button>
   </div>
 </ng-template>
 
