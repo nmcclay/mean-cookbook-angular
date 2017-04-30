@@ -1,6 +1,6 @@
 <ng-template #modal let-c="close">
   <div class="modal-header">
-    <h4 class="modal-title">New Post</h4>
+    <h4 class="modal-title">New Post <small>- by {{user.getName()}}</small></h4>
     <button type="button" class="close" aria-label="Close" (click)="c()">
       <fa [name]="'close'"></fa>
     </button>

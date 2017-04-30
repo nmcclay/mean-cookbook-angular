@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {CurrentUserService} from "../current-user.service";
+import {User} from "../user";
 
 @Component({
   selector: 'app-authors',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthorsComponent implements OnInit {
 
-  constructor() { }
+  user: User;
+  constructor(private currentUserService: CurrentUserService) { }
 
   ngOnInit() {
+    this.user = this.currentUserService.getUser();
   }
 
 }
