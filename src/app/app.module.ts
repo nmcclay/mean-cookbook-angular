@@ -14,10 +14,21 @@ import { getLocaleProvider } from "./i18n-providers";
 import { CurrentUserService } from "./current-user.service";
 import { User } from "./user";
 
-const ROUTES = [{
-  path: 'authors',
-  component: AuthorsComponent,
-}];
+const ROUTES = [
+  {
+    path: "",
+    redirectTo: "/posts",
+    pathMatch: 'full'
+  },
+  {
+    path: 'authors',
+    component: AuthorsComponent,
+  },
+  {
+    path: "**",
+    component: PageNotFoundComponent
+  }
+];
 
 @NgModule({
   declarations: [
