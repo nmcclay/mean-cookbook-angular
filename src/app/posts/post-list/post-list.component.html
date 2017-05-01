@@ -1,0 +1,14 @@
+<section class="row" *ngFor="let post of posts; let i = index;">
+  <div class="col col-sm-12">
+    <div class="card">
+      <div class="card-header">
+        <small class="pull-left">Posted - {{ post.published | date:'shortDate' }}</small>
+        <small class="pull-right">{{post.author.getName()}}</small>
+      </div>
+      <div class="card-block">
+        <h4 class="card-title">{{post.title}}</h4>
+        <p class="card-text">{{post.content}}</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -7,11 +7,17 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 import { CreatePostFormComponent } from './create-post-form/create-post-form.component'
 import {FormsModule} from "@angular/forms";
+import {BlogPostsService} from "./blog-posts.service";
+import { PostListComponent } from './post-list/post-list.component';
 
 const ROUTES = [{
   path: "posts",
   component: PostsComponent,
   children: [
+    {
+      path: "",
+      component: PostListComponent
+    },
     {
       path: ":id",
       component: PostComponent
@@ -30,7 +36,9 @@ const ROUTES = [{
   declarations: [
     PostsComponent,
     PostComponent,
-    CreatePostFormComponent
-  ]
+    CreatePostFormComponent,
+    PostListComponent
+  ],
+  providers: [BlogPostsService]
 })
-export class PostsModule { }
+export class PostsModule {}
