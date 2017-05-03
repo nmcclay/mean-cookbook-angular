@@ -3,11 +3,11 @@
     <div class="card">
       <div class="card-header">
         <small class="pull-left">Posted - {{ post.published | date:'shortDate' }}</small>
-        <small class="pull-right">{{post.author.getName()}}</small>
+        <small class="pull-right">{{post.author.displayName}}</small>
       </div>
       <div class="card-block">
         <h4 class="card-title">{{post.title}}</h4>
-        <p class="card-text">{{post.content}}</p>
+        <p class="card-text" [innerHTML]=post.content></p>
       </div>
     </div>
   </div>
