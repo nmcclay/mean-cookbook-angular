@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BlogPost} from "./blog-post";
-import {Http} from "@angular/http";
+import {Http, URLSearchParams} from "@angular/http";
 import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/toPromise';
 
@@ -8,18 +8,27 @@ import 'rxjs/add/operator/toPromise';
 export class BlogPostsService {
   private apiHostUrl = 'https://www.googleapis.com';
   private blogUrl = this.apiHostUrl + '/blogger/v3/blogs/7159470537406093899';
-  private postsUrl = this.blogUrl + '/posts?key=' +
-    environment.bloggerAPIKey;
+  private postsUrl = this.blogUrl + '/posts';
+  private nextPageToken: string;
 
-  constructor(private http: Http) {}
+  constructor(private http: Http) {
+  }
 
-  getPosts(): Promise<BlogPost[]> {
-    return this.http.get(this.postsUrl)
+  getNextPage(): Promise<BlogPost[]> {
+    return this.getPosts(this.nextPageToken);
+  }
+
+  getPosts(pageToken?: string): Promise<BlogPost[]> {
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('key', environment.bloggerAPIKey);
+    if (pageToken) params.set('pageToken', pageToken);
+
+    return this.http.get(this.postsUrl, {params: params})
       .toPromise()
       .then((response) => {
-        let posts = response.json().items;
-        console.log(posts);
-        return posts as BlogPost[]
+        let postJSON = response.json();
+        this.nextPageToken = postJSON.nextPageToken;
+        return postJSON.items as BlogPost[]
       })
       .catch(this.handleError);
   }

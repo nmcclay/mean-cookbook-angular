@@ -13,5 +13,4 @@ export class CurrentUserService {
   setUser(newUser:User) {
     return this.user = newUser;
   }
-
 }

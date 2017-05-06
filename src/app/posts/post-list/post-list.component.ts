@@ -15,4 +15,10 @@ export class PostListComponent implements OnInit {
   ngOnInit() {
     this.blogPostsService.getPosts().then(posts => { this.posts = posts});
   }
+
+  loadMorePosts() {
+    this.blogPostsService.getNextPage().then(posts => {
+      this.posts = this.posts.concat(posts);
+    });
+  }
 }
