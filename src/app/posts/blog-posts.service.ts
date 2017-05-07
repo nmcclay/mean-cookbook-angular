@@ -45,9 +45,9 @@ export class BlogPostsService {
     return this.http.get(this.postsUrl, {params: params})
       .toPromise()
       .then((response) => {
-        let postJSON = response.json();
-        let posts = postJSON.items;
-        let token = postJSON.nextPageToken;
+        let JSON = response.json();
+        let posts = JSON.items;
+        let token = JSON.nextPageToken;
         this.nextPageToken = token;
         this.addPostsToCache(token, posts);
         return posts as BlogPost[]
@@ -55,8 +55,20 @@ export class BlogPostsService {
       .catch(this.handleError);
   }
 
+  getBlogMetadata(): Promise<number> {
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('key', environment.bloggerAPIKey);
+    return this.http.get(this.blogUrl, {params: params})
+      .toPromise()
+      .then((response) => {
+        return response.json();
+      })
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
-    return Promise.reject(error.message || error);
+    let errorJSON = JSON.parse(error._body).error;
+    console.error('An error occurred', errorJSON);
+    return Promise.reject(errorJSON || error);
   }
 }

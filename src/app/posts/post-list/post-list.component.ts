@@ -9,12 +9,22 @@ import {BlogPost} from "../blog-post";
 })
 export class PostListComponent implements OnInit {
   posts: BlogPost[];
-  private loadingPosts:boolean = false;
+  private loadingPosts: boolean = false;
+  private metadata: Object;
+  private postLoadError: Object;
 
   constructor(private blogPostsService: BlogPostsService) { }
 
   ngOnInit() {
-    this.blogPostsService.getPosts().then(posts => { this.posts = posts});
+    let promises:Promise<any>[] = [];
+    promises.push(this.blogPostsService.getPosts());
+    promises.push(this.blogPostsService.getBlogMetadata());
+    Promise.all(promises).then(
+      (data) => {
+        this.posts = data[0];
+        this.metadata = data[1]
+      }
+    ).catch(error => { this.postLoadError = error });
   }
 
   loadMorePosts() {
@@ -23,7 +33,7 @@ export class PostListComponent implements OnInit {
       this.blogPostsService.getNextPage().then(posts => {
         this.posts = this.posts.concat(posts);
         this.loadingPosts = false;
-      });
+      }).catch(error => { this.postLoadError = error });
     }
   }
 }
