@@ -12,4 +12,4 @@
     </div>
   </div>
 </section>
-<button class="btn btn-block btn-outline-primary" (click)="loadMorePosts()">More Posts</button>
+<button class="btn btn-block btn-outline-primary" [disabled]="loadingPosts" (click)="loadMorePosts()">More Posts</button>

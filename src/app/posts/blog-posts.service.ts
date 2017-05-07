@@ -10,6 +10,7 @@ export class BlogPostsService {
   private blogUrl = this.apiHostUrl + '/blogger/v3/blogs/7159470537406093899';
   private postsUrl = this.blogUrl + '/posts';
   private nextPageToken: string;
+  private postsCache: { [token: string]: BlogPost[] } = { };
 
   constructor(private http: Http) {
   }
@@ -18,17 +19,38 @@ export class BlogPostsService {
     return this.getPosts(this.nextPageToken);
   }
 
+  addPostsToCache(token: string, posts: BlogPost[]) {
+    this.postsCache[token] = posts;
+    console.log(this.postsCache);
+  }
+
+  getPostsFromCache(token: string) {
+    if (this.postsCache[token]) {
+      return this.postsCache[token];
+    }
+  }
+
   getPosts(pageToken?: string): Promise<BlogPost[]> {
     let params: URLSearchParams = new URLSearchParams();
     params.set('key', environment.bloggerAPIKey);
-    if (pageToken) params.set('pageToken', pageToken);
+    if (pageToken) {
+      let cachedPosts = this.getPostsFromCache(pageToken);
+      if (cachedPosts) {
+        return Promise.resolve(cachedPosts);
+      } else {
+        params.set('pageToken', pageToken);
+      }
+    }
 
     return this.http.get(this.postsUrl, {params: params})
       .toPromise()
       .then((response) => {
         let postJSON = response.json();
-        this.nextPageToken = postJSON.nextPageToken;
-        return postJSON.items as BlogPost[]
+        let posts = postJSON.items;
+        let token = postJSON.nextPageToken;
+        this.nextPageToken = token;
+        this.addPostsToCache(token, posts);
+        return posts as BlogPost[]
       })
       .catch(this.handleError);
   }

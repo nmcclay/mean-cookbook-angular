@@ -9,6 +9,7 @@ import {BlogPost} from "../blog-post";
 })
 export class PostListComponent implements OnInit {
   posts: BlogPost[];
+  private loadingPosts:boolean = false;
 
   constructor(private blogPostsService: BlogPostsService) { }
 
@@ -17,8 +18,12 @@ export class PostListComponent implements OnInit {
   }
 
   loadMorePosts() {
-    this.blogPostsService.getNextPage().then(posts => {
-      this.posts = this.posts.concat(posts);
-    });
+    if (!this.loadingPosts) {
+      this.loadingPosts = true;
+      this.blogPostsService.getNextPage().then(posts => {
+        this.posts = this.posts.concat(posts);
+        this.loadingPosts = false;
+      });
+    }
   }
 }
