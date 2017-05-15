@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BlogPost} from "./blog-post";
+import {PostPage} from "./post-page";
 import {Http, URLSearchParams} from "@angular/http";
 import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/toPromise';
@@ -10,49 +11,49 @@ export class BlogPostsService {
   private blogUrl = this.apiHostUrl + '/blogger/v3/blogs/7159470537406093899';
   private postsUrl = this.blogUrl + '/posts';
   private nextPageToken: string;
-  private postsCache: { [token: string]: BlogPost[] } = { };
+  private pageCache: { [token: string]: PostPage } = {};
 
-  constructor(private http: Http) {
-  }
+  constructor(private http: Http) {}
 
   getNextPage(): Promise<BlogPost[]> {
     return this.getPosts(this.nextPageToken);
   }
 
-  addPostsToCache(token: string, posts: BlogPost[]) {
-    this.postsCache[token] = posts;
-    console.log(this.postsCache);
+  private writePageToCache(token: string, page: PostPage) {
+    this.pageCache[token] = page as PostPage;
+    console.log(this.pageCache);
   }
 
-  getPostsFromCache(token: string) {
-    if (this.postsCache[token]) {
-      return this.postsCache[token];
+  private readPageFromCache(token: string): PostPage {
+    if (this.pageCache[token]) {
+      return this.pageCache[token];
     }
   }
 
-  getPosts(pageToken?: string): Promise<BlogPost[]> {
-    let params: URLSearchParams = new URLSearchParams();
+  private requestPosts(params: URLSearchParams = new URLSearchParams()): Promise<any> {
     params.set('key', environment.bloggerAPIKey);
-    if (pageToken) {
-      let cachedPosts = this.getPostsFromCache(pageToken);
-      if (cachedPosts) {
-        return Promise.resolve(cachedPosts);
-      } else {
-        params.set('pageToken', pageToken);
-      }
-    }
-
     return this.http.get(this.postsUrl, {params: params})
       .toPromise()
       .then((response) => {
-        let JSON = response.json();
-        let posts = JSON.items;
-        let token = JSON.nextPageToken;
-        this.nextPageToken = token;
-        this.addPostsToCache(token, posts);
-        return posts as BlogPost[]
+        return response.json();
       })
-      .catch(this.handleError);
+  }
+
+  getPosts(pageToken: string = 'first_page'): Promise<BlogPost[]> {
+    let cachedPage = this.readPageFromCache(pageToken);
+    if (cachedPage) {
+      this.nextPageToken = cachedPage.nextPageToken;
+      return Promise.resolve(cachedPage.items);
+    } else {
+      let params: URLSearchParams = new URLSearchParams();
+      if (pageToken !== 'first_page') params.set('pageToken', pageToken);
+      return this.requestPosts(params).then((JSON) => {
+        let posts = JSON.items;
+        this.nextPageToken = JSON.nextPageToken;
+        this.writePageToCache(pageToken, JSON);
+        return posts as BlogPost[]
+      }).catch(this.handleError);
+    }
   }
 
   getBlogMetadata(): Promise<number> {
