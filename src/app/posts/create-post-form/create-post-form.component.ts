@@ -3,6 +3,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {BlogPost} from "../blog-post";
 import {CurrentUserService} from "../../current-user.service";
 import {User} from "../../user";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-create-post-form',
@@ -11,7 +12,7 @@ import {User} from "../../user";
 })
 export class CreatePostFormComponent implements OnInit {
   model: BlogPost;
-  user: User;
+  currentUser: Observable<User>;
   constructor(private modalService: NgbModal, private currentUserService: CurrentUserService) {}
 
   open(content) {
@@ -24,6 +25,6 @@ export class CreatePostFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.currentUserService.getUser();
+    this.currentUser = this.currentUserService.getUser();
   }
 }

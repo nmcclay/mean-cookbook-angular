@@ -8,4 +8,8 @@ export class User {
   getName() {
     return this.firstName + ' ' + this.lastName;
   }
+
+  isAuthenticated() {
+    return this.email !== "";
+  }
 }

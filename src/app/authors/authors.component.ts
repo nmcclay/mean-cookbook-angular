@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CurrentUserService} from "../current-user.service";
 import {User} from "../user";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-authors',
@@ -8,12 +9,10 @@ import {User} from "../user";
   styleUrls: ['./authors.component.css']
 })
 export class AuthorsComponent implements OnInit {
-
-  user: User;
+  currentUser: Observable<User>;
   constructor(private currentUserService: CurrentUserService) { }
 
   ngOnInit() {
-    this.user = this.currentUserService.getUser();
+    this.currentUser = this.currentUserService.getUser();
   }
-
 }
