@@ -14,6 +14,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { getLocaleProvider } from "./i18n-providers";
 import { CurrentUserService } from "./current-user.service";
 import { LoginComponent } from './login/login.component';
+import { JwtModule } from './jwt/jwt.module';
 
 const ROUTES = [
   {
@@ -51,7 +52,8 @@ const ROUTES = [
     RouterModule.forRoot(ROUTES),
     PostsModule,
     NgbModule.forRoot(),
-    Angular2FontawesomeModule
+    Angular2FontawesomeModule,
+    JwtModule
   ],
   providers: [{ provide: LOCALE_ID, useFactory: getLocaleProvider }, CurrentUserService],
   bootstrap: [AppComponent]
