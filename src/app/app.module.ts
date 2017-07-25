@@ -15,6 +15,7 @@ import { getLocaleProvider } from "./i18n-providers";
 import { CurrentUserService } from "./current-user.service";
 import { LoginComponent } from './login/login.component';
 import { JwtModule } from './jwt/jwt.module';
+import { PaymentComponent } from './payment/payment.component';
 
 const ROUTES = [
   {
@@ -25,6 +26,10 @@ const ROUTES = [
   {
     path: "login",
     component: LoginComponent,
+  },
+  {
+    path: "payment",
+    component: PaymentComponent,
   },
   {
     path: 'authors',
@@ -42,7 +47,8 @@ const ROUTES = [
     AuthorsComponent,
     PageNotFoundComponent,
     AuthorComponent,
-    LoginComponent
+    LoginComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,
