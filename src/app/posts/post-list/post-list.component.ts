@@ -9,9 +9,9 @@ import {BlogPost} from "../blog-post";
 })
 export class PostListComponent implements OnInit {
   posts: BlogPost[];
-  private loadingPosts: boolean = false;
-  private metadata: Object;
-  private postLoadError: Object;
+  public loadingPosts: boolean = false;
+  public metadata: Object;
+  public postLoadError: Object;
 
   constructor(private blogPostsService: BlogPostsService) { }
 

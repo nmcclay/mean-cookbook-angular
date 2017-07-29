@@ -20,9 +20,9 @@
       <span *ngIf="(currentUser$ | async).isAuthenticated(); else unauthenticated">
         <span class="nav-link">{{(currentUser$ | async).getName()}} | <a href="#" (click)="logout()">logout</a></span>
       </span>
-      <template #unauthenticated>
+      <ng-template #unauthenticated>
         <a routerLink="/login" class="nav-link pull-right">Login</a>
-      </template>
+      </ng-template>
     </div>
   </div>
 </nav>
