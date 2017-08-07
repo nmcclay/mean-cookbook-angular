@@ -17,8 +17,9 @@
           </div>
           <hr>
           <div class="form-group">
-            <button [disabled]="loading" class="btn btn-primary btn-block">Login</button>
-            <fa *ngIf="loading" [name]="'spinner'" [spin]=true></fa>
+            <button [disabled]="loading" class="btn btn-primary btn-block">
+              <fa *ngIf="loading" [name]="'spinner'" [spin]=true></fa>Login
+            </button>
           </div>
         </form>
       </div>

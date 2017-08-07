@@ -16,6 +16,7 @@ import { CurrentUserService } from "./current-user.service";
 import { LoginComponent } from './login/login.component';
 import { JwtModule } from './jwt/jwt.module';
 import { PaymentComponent } from './payment/payment.component';
+import '../font-awesome.font';
 
 const ROUTES = [
   {
