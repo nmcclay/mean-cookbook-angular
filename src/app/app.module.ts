@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule, LOCALE_ID } from '@angular/core';
+import {NgModule, LOCALE_ID} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
@@ -17,6 +17,7 @@ import { LoginComponent } from './login/login.component';
 import { JwtModule } from './jwt/jwt.module';
 import { PaymentComponent } from './payment/payment.component';
 import '../font-awesome.font';
+import SentryProvider  from './sentry.provider';
 
 const ROUTES = [
   {
@@ -62,7 +63,11 @@ const ROUTES = [
     Angular2FontawesomeModule,
     JwtModule
   ],
-  providers: [{ provide: LOCALE_ID, useFactory: getLocaleProvider }, CurrentUserService],
+  providers: [
+    { provide: LOCALE_ID, useFactory: getLocaleProvider },
+    CurrentUserService,
+    SentryProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

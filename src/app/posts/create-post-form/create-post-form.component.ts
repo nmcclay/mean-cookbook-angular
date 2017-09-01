@@ -18,6 +18,7 @@ export class CreatePostFormComponent implements OnInit {
   open(content) {
     this.model = new BlogPost("New Post Title");
     this.modalService.open(content, {backdrop: "static", size: "lg"});
+    throw new Error('fire!');
   }
 
   submit() {
