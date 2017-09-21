@@ -8,9 +8,9 @@ import {CurrentUserService} from "../current-user.service";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  model: any = {};
-  loading = false;
-  error = '';
+  model:any = {};
+  loading:boolean = false;
+  error:string = '';
 
   constructor(private router: Router,
               private currentUser: CurrentUserService) {
