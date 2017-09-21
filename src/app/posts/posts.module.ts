@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RouterModule} from "@angular/router";
-import {PostsComponent} from "./posts.component";
-import {PostComponent} from "./post/post.component";
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from "@angular/router";
+import { PostsComponent } from "./posts.component";
+import { PostComponent } from "./post/post.component";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 import { CreatePostFormComponent } from './create-post-form/create-post-form.component'
-import {FormsModule} from "@angular/forms";
-import {BlogPostsService} from "./blog-posts.service";
+import { FormsModule } from "@angular/forms";
+import { BlogPostsService } from "./blog-posts.service";
 import { PostListComponent } from './post-list/post-list.component';
 
 const ROUTES = [{
